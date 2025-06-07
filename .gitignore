@@ -1,3 +1,20 @@
 # Ignore macOS system files used to store folder metadata
 .DS_Store
 
+
+.ok_history
+.ok_storage.*
+*.ok_storage.*
+**/.ok_history
+**/.ok_storage.*
+**/__pycache__/
+
+
+__pycache__/
+*.py[cod]
+
+ex.py
+ex_test.py
+
+
+**/tests/
