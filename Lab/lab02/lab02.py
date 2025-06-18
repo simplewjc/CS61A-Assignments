@@ -14,7 +14,13 @@ def composite_identity(f, g):
     False
     """
     "*** YOUR CODE HERE ***"
-
+    def identity(x):
+        if f(g(x)) == g(f(x)):
+            return True
+        else:
+            return False
+        
+    return identity
 
 def sum_digits(y):
     """Return the sum of the digits of non-negative integer y."""
@@ -60,7 +66,15 @@ def count_cond(condition):
     8
     """
     "*** YOUR CODE HERE ***"
-
+    def count_cond_imply(n):
+        i = 1
+        count = 0
+        while i <= n:
+            if condition(n, i):
+                count += 1
+            i += 1
+        return count
+    return count_cond_imply
 
 def multiple(a, b):
     """Return the smallest number n that is a multiple of both a and b.
@@ -71,9 +85,18 @@ def multiple(a, b):
     42
     """
     "*** YOUR CODE HERE ***"
-
-
-
+    # for i in range(max(a ,b), a * b + 1):
+    #     if i % a == 0 and i % b == 0:
+    #         return i
+    def gcd(a, b):
+        while b:
+            a, b = b, a % b
+        return a
+    def lcm(a, b):
+        return abs(a * b) // gcd(a, b)
+    
+    return lcm(a, b)
+    
 def cycle(f1, f2, f3):
     """Returns a function that is itself a higher-order function.
 
@@ -101,4 +124,24 @@ def cycle(f1, f2, f3):
     19
     """
     "*** YOUR CODE HERE ***"
-
+    # def g(n):
+    #     def h(x):
+    #         for i in range(n):
+    #             if i % 3 == 0:
+    #                 x = f1(x)
+    #             elif i % 3 == 1:
+    #                 x = f2(x)
+    #             else:
+    #                 x =  f3(x)
+    #         return x
+    #     return h
+    # return g
+    def g(n):
+        def h(x):
+            func = [f1, f2, f3]
+            result = x
+            for i in range(n):
+                result = func[i % 3](result)
+            return result
+        return h
+    return g

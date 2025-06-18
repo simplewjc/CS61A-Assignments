@@ -25,7 +25,11 @@ def num_eights(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if n < 10:
+        return 1 if n == 8 else 0
+    else:
+        return num_eights(n // 10) + num_eights(n % 10)
+    
 
 def digit_distance(n):
     """Determines the digit distance of n.
@@ -47,7 +51,10 @@ def digit_distance(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if n < 10:
+        return 0
+    else:
+        return digit_distance(n // 10) + abs((n % 10) - (n // 10) % 10)
 
 def interleaved_sum(n, odd_func, even_func):
     """Compute the sum odd_func(1) + even_func(2) + odd_func(3) + ..., up
@@ -71,7 +78,19 @@ def interleaved_sum(n, odd_func, even_func):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    def odd_sum(k):
+        if k > n:
+            return 0
+        else:
+            return odd_func(k) + even_sum(k + 1)
+    
+    def even_sum(k):
+        if k > n:
+            return 0
+        else:
+            return even_func(k) + odd_sum(k + 1)
+    
+    return odd_sum(1)
 
 def next_smaller_dollar(bill):
     """Returns the next smaller bill in order."""
@@ -107,8 +126,16 @@ def count_dollars(total):
     True
     """
     "*** YOUR CODE HERE ***"
-
-
+    def recrusion_count(total, bill):
+        if total == 0:
+            return 1
+        elif total < 0 or bill is None:
+            return 0
+        else:
+            return recrusion_count(total - bill, bill) + recrusion_count(total, next_smaller_dollar(bill))
+    
+    return recrusion_count(total, 100)
+    
 def next_larger_dollar(bill):
     """Returns the next larger bill in order."""
     if bill == 1:
